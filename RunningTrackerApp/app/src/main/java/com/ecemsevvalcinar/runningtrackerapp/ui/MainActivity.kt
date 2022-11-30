@@ -1,5 +1,6 @@
 package com.ecemsevvalcinar.runningtrackerapp.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ecemsevvalcinar.runningtrackerapp.R
 import com.ecemsevvalcinar.runningtrackerapp.databinding.ActivityMainBinding
+import com.ecemsevvalcinar.runningtrackerapp.other.Constants.ACTION_SHOW_TRACKING_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        navigateToTrackingFragmentIfNeeded(intent)
 
         setSupportActionBar(binding.toolbar)
 
@@ -34,4 +38,17 @@ class MainActivity : AppCompatActivity() {
             }
 
     }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        navigateToTrackingFragmentIfNeeded(intent)
+    }
+
+    // clicking the notification in foreground service opens the trackingFragment
+    private fun navigateToTrackingFragmentIfNeeded(intent: Intent?) {
+        if(intent?.action == ACTION_SHOW_TRACKING_FRAGMENT) {
+            binding.flFragment[0].findNavController().navigate(R.id.action_global_tracking_fragment)
+        }
+    }
+
 }

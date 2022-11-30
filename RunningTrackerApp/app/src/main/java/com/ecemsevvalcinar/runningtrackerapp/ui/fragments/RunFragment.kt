@@ -45,7 +45,7 @@ class RunFragment: Fragment(R.layout.fragment_run), EasyPermissions.PermissionCa
     }
 
     private fun requestPermissions() {
-        println(TrackingUtility.hasLocationPermissions(requireContext()))
+        // println(TrackingUtility.hasLocationPermissions(requireContext()))
         if(TrackingUtility.hasLocationPermissions(requireContext())) {
             return
         }

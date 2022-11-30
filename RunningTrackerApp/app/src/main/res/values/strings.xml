@@ -37,4 +37,12 @@
     <string name="run_text_sort_by">Sort by:</string>
     <string name="run_fragment_text_accept_permissions">You need to accept location permissions to use this app.</string>
 
+    // Tracking Fragment
+    <string name="tracking_text_finish_run">Finish Run</string>
+    <string name="tracking_text_start">Start</string>
+    <string name="tracking_text_stop">Stop</string>
+
+    // Tracking Service
+    <string name="tracking_service_text_content_title">Running Tracker App</string>
+
 </resources>
