@@ -15,6 +15,7 @@ import com.ecemsevvalcinar.runningtrackerapp.other.Constants.ACTION_START_OR_RES
 import com.ecemsevvalcinar.runningtrackerapp.other.Constants.MAP_ZOOM
 import com.ecemsevvalcinar.runningtrackerapp.other.Constants.POLYLINE_COLOR
 import com.ecemsevvalcinar.runningtrackerapp.other.Constants.POLYLINE_WIDTH
+import com.ecemsevvalcinar.runningtrackerapp.other.TrackingUtility
 import com.ecemsevvalcinar.runningtrackerapp.services.Polyline
 import com.ecemsevvalcinar.runningtrackerapp.services.TrackingService
 import com.ecemsevvalcinar.runningtrackerapp.ui.viewmodels.MainViewModel
@@ -31,6 +32,7 @@ class TrackingFragment: Fragment(R.layout.fragment_tracking) {
     private lateinit var binding: FragmentTrackingBinding
     private var isTracking = false
     private var pathPoints = mutableListOf<Polyline>()
+    private var currentTimeMillis = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,7 +65,7 @@ class TrackingFragment: Fragment(R.layout.fragment_tracking) {
         }
 
     private fun addLatestPolyline() {
-        if(pathPoints.isNotEmpty() && pathPoints.last().size > 1) {
+        if (pathPoints.isNotEmpty() && pathPoints.last().size > 1) {
             val preLastLatLng = pathPoints.last()[pathPoints.last().size - 2]
             val lastLatLng = pathPoints.last().last()
             val polylineOptions = PolylineOptions()
@@ -77,7 +79,7 @@ class TrackingFragment: Fragment(R.layout.fragment_tracking) {
     }
 
     private fun addAllPolylines() {
-        for(polyline in pathPoints) {
+        for (polyline in pathPoints) {
             val polylineOptions = PolylineOptions()
                 .color(POLYLINE_COLOR)
                 .width(POLYLINE_WIDTH)
@@ -87,7 +89,7 @@ class TrackingFragment: Fragment(R.layout.fragment_tracking) {
     }
 
     private fun moveCameraToUser() {
-        if(pathPoints.isNotEmpty() && pathPoints.last().isNotEmpty()) {
+        if (pathPoints.isNotEmpty() && pathPoints.last().isNotEmpty()) {
             map?.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     pathPoints.last().last(), MAP_ZOOM
@@ -122,6 +124,12 @@ class TrackingFragment: Fragment(R.layout.fragment_tracking) {
             pathPoints = it
             addLatestPolyline()
             moveCameraToUser()
+        }
+
+        TrackingService.timeRunInMillis.observe(viewLifecycleOwner) {
+            currentTimeMillis = it
+            val formattedTime = TrackingUtility.getFormattedStopWatchTime(currentTimeMillis, true)
+            binding.tvTimer.text = formattedTime
         }
     }
 
