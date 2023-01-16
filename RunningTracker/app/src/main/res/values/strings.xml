@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Running Tracker</string>
+    <string name="google_maps_key">Your Own Api</string>
+    <string-array name="filter_options">
+        <item>Date</item>
+        <item>Running Time</item>
+        <item>Distance</item>
+        <item>Average Speed</item>
+        <item>Calories Burned</item>
+    </string-array>
+
+    // Menu Texts
+    <string name="menu_text_your_runs">Your Runs</string>
+    <string name="menu_text_statistics">Statistics</string>
+    <string name="menu_text_settings">Settings</string>
+
+    // Setup Fragment
+    <string name="setup_text_welcome">Welcome!\nPlease enter your name and weight.</string>
+    <string name="setup_text_your_name">Your Name</string>
+    <string name="setup_text_your_weight">Your Weight</string>
+    <string name="setup_text_continue">Continue</string>
+    <string name="setup_text_kg">kg</string>
+
+    // Statistics Fragment
+    <string name="statistics_text_total_distance">Total Distance</string>
+    <string name="statistics_text_avg_speed">Average Speed</string>
+    <string name="statistics_text_total_cal_burned">Total Calories Burned</string>
+    <string name="statistics_text_total_time">Total Time</string>
+    <string name="statistics_text_counter_starter">00:00:00</string>
+
+    // Settings Fragment
+    <string name="settings_text_your_name">Your Name</string>
+    <string name="settings_text_your_weight">Your Weight</string>
+    <string name="settings_text_apply_changes_button">Apply Changes</string>
+
+    // Run Fragment
+    <string name="run_text_sort_by">Sort by:</string>
+    <string name="run_fragment_text_accept_permissions">You need to accept location permissions to use this app.</string>
+
+    // Tracking Fragment
+    <string name="tracking_text_finish_run">Finish Run</string>
+    <string name="tracking_text_start">Start</string>
+    <string name="tracking_text_stop">Stop</string>
+
+    // Tracking Service
+    <string name="tracking_service_text_content_title">Running Tracker App</string>
+
+</resources>
