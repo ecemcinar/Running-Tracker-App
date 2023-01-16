@@ -45,4 +45,11 @@
     // Tracking Service
     <string name="tracking_service_text_content_title">Running Tracker App</string>
 
+    // Run Item
+    <string name="run_generic_avgSpeed_text">%1$s %2$s</string>
+    <string name="run_generic_helper_km_text">km/h</string>
+
+    <string name="run_generic_distanceInMeters_text">%1$s %2$s</string>
+    <string name="run_generic_helper_meter_text">m</string>
+
 </resources>
