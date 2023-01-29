@@ -38,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:imeOptions="actionNext"
                 android:hint="@string/setup_text_your_name"
                 android:inputType="textPersonName" />
 
@@ -56,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/setup_text_your_weight"
+                android:imeOptions="actionDone"
                 android:ems="10"
                 android:inputType="numberDecimal" />
 

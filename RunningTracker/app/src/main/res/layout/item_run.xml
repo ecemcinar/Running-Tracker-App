@@ -25,61 +25,122 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDate"
+        android:id="@+id/tvDateLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         tools:text="DATE"
-        android:textDateInFormatted="@{model.timestamp}"
+        android:text="DATE"
         app:layout_constraintEnd_toStartOf="@+id/tvTime"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivRunImage" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvTime"
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="6.01"
+        android:textDateInFormatted="@{model.timestamp}"
+        app:layout_constraintEnd_toStartOf="@+id/tvTime"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDateLabel" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTimeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         tools:text="TIME"
-        android:textTimeInFormatted="@{model.timeInMillis}"
+        android:text="TIME"
         app:layout_constraintEnd_toStartOf="@+id/tvDistance"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvDate"
         app:layout_constraintTop_toBottomOf="@+id/ivRunImage" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDistance"
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="5"
+        android:textTimeInFormatted="@{model.timeInMillis}"
+        app:layout_constraintEnd_toStartOf="@+id/tvDistance"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimeLabel" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDistanceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@{@string/run_generic_distanceInMeters_text(String.valueOf(model.distanceInMeters), @string/run_generic_helper_meter_text)}"
+        tools:text="DIST"
+        android:text="DIST"
         app:layout_constraintEnd_toStartOf="@+id/tvAvgSpeed"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvTime"
         app:layout_constraintTop_toBottomOf="@+id/ivRunImage" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvAvgSpeed"
+        android:id="@+id/tvDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="100m"
+        android:text="@{@string/run_generic_distanceInMeters_text(String.valueOf(model.distanceInMeters), @string/run_generic_helper_meter_text)}"
+        app:layout_constraintEnd_toStartOf="@+id/tvAvgSpeed"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvTime"
+        app:layout_constraintTop_toBottomOf="@+id/tvDistanceLabel" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvAvgSpeedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@{@string/run_generic_avgSpeed_text(String.valueOf(model.avgSpeedInKMH), @string/run_generic_helper_km_text)}"
+        android:text="SPD"
         app:layout_constraintEnd_toStartOf="@+id/tvCalories"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvDistance"
         app:layout_constraintTop_toBottomOf="@+id/ivRunImage" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvCalories"
+        android:id="@+id/tvAvgSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="5"
+        android:text="@{@string/run_generic_avgSpeed_text(String.valueOf(model.avgSpeedInKMH), @string/run_generic_helper_km_text)}"
+        app:layout_constraintEnd_toStartOf="@+id/tvCalories"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvDistance"
+        app:layout_constraintTop_toBottomOf="@+id/tvAvgSpeedLabel" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvCaloriesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@{String.valueOf(model.caloriesBurned)}"
+        android:text="CAL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvAvgSpeed"
         app:layout_constraintTop_toBottomOf="@+id/ivRunImage" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="5"
+        android:text="@{String.valueOf(model.caloriesBurned)}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvAvgSpeed"
+        app:layout_constraintTop_toBottomOf="@+id/tvCaloriesLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

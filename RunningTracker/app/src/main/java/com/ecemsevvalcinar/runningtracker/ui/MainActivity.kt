@@ -28,6 +28,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setupWithNavController(binding.flFragment[0].findNavController())
 
+        binding.bottomNavigationView.setOnItemReselectedListener { /* NO-OP */
+
+        }
+
         binding.flFragment[0].findNavController()
             .addOnDestinationChangedListener{_, destination, _ ->
                 when (destination.id) {

@@ -27,11 +27,13 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
+import javax.inject.Inject
 import kotlin.math.round
+
+const val CANCEL_TRACKING_DIALOG_TAG = "CancelDialog"
 
 @AndroidEntryPoint
 class TrackingFragment: Fragment(R.layout.fragment_tracking), MenuProvider {
@@ -44,13 +46,23 @@ class TrackingFragment: Fragment(R.layout.fragment_tracking), MenuProvider {
     private var currentTimeMillis = 0L
     private var menu: Menu? = null
 
-    private var weight = 60f
+    @set:Inject
+    var weight = 60f
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mapView.onCreate(savedInstanceState)
         binding.btnToggleRun.setOnClickListener {
             toggleRun()
+        }
+
+        if (savedInstanceState != null) {
+            val cancelTrackingDialog = parentFragmentManager.findFragmentByTag(
+                CANCEL_TRACKING_DIALOG_TAG) as CancelTrackingDialog?
+
+            cancelTrackingDialog?.setYesListener {
+                stopRun()
+            }
         }
 
         binding.btnFinishRun.setOnClickListener {
@@ -98,21 +110,15 @@ class TrackingFragment: Fragment(R.layout.fragment_tracking), MenuProvider {
     }
 
     private fun showCancelTrackingDialog() {
-        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
-            .setTitle("Cancel the Run?")
-            .setMessage("Are you sure to cancel the run and delete all its data?")
-            .setIcon(R.drawable.ic_delete)
-            .setPositiveButton("Yes") { _, _ ->
+        CancelTrackingDialog().apply {
+            setYesListener {
                 stopRun()
             }
-            .setNegativeButton("No") { dialogInterface, _ ->
-                dialogInterface.cancel()
-            }
-            .create()
-        dialog.show()
+        }.show(parentFragmentManager, CANCEL_TRACKING_DIALOG_TAG)
     }
 
     private fun stopRun() {
+        binding.tvTimer.text = getString(R.string.statistics_text_counter_starter)
         sendCommandToService(ACTION_STOP_SERVICE)
         findNavController().navigate(R.id.action_trackingFragment_to_runFragment)
     }
@@ -181,6 +187,7 @@ class TrackingFragment: Fragment(R.layout.fragment_tracking), MenuProvider {
             for (polyline in pathPoints) {
                 distanceInMeters += TrackingUtility.calculatePolylineLength(polyline).toInt()
             }
+
             val avgSpeed = round((distanceInMeters / 1000f) / (currentTimeMillis / 1000f / 60 / 60) * 10) / 10f
             val dateTimestamp = Calendar.getInstance().timeInMillis
             val caloriesBurned = ((distanceInMeters / 1000f) * weight).toInt()
@@ -204,11 +211,11 @@ class TrackingFragment: Fragment(R.layout.fragment_tracking), MenuProvider {
 
     private fun updateTracking(isTracking: Boolean) {
         this.isTracking = isTracking
-        if (!isTracking) {
+        if (!isTracking && currentTimeMillis > 0L) {
             binding.btnToggleRun.text = getString(R.string.tracking_text_start)
             binding.btnFinishRun.visibility = View.VISIBLE
         }
-        else {
+        else if (isTracking) {
             binding.btnToggleRun.text = getString(R.string.tracking_text_stop)
             menu?.getItem(0)?.isVisible = true
             binding.btnFinishRun.visibility = View.GONE
